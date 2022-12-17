@@ -1,9 +1,9 @@
 ### Machine Learning Step
 
 1. Understand the shape of Data
-<div> check info .describe etc 資料相關資訊
-<div> check.hist .boxplot etc 
-<div> corr相關係數 
+&nbsp; check info .describe etc 資料相關資訊
+<tr> check.hist .boxplot etc 
+<tr> corr相關係數 
 <tr> value counts 
 1. Data Cleaning
 <tr> check missing data count 填補缺失值
