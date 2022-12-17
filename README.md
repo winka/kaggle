@@ -1,5 +1,8 @@
 # Kaggle Tantic 
 
 
-![image](https://github.com/winka/IMG/blob/main/tantic%20describe.PNG?raw=true)
-
+| Left columns  | Right columns |
+| ------------- |:-------------:|
+| left foo      | ![image](https://github.com/winka/IMG/blob/main/tantic%20info.PNG?raw=true)    |
+| left bar      | right bar     |
+| left baz      | right baz     |
