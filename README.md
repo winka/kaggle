@@ -22,7 +22,7 @@
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20describe.PNG?raw=true)
 
-再來用 info 來看資料相關資訊
+## 再來用 info 來看資料相關資訊
 ```python
     print(train.info())
 ```
@@ -30,9 +30,9 @@
 
 ## 我的觀察
 
-Age, Cabin 欄位有缺失值需要再填補缺失值  
+## Age, Cabin 欄位有缺失值需要再填補缺失值  
 
- 1. 數值型欄位 .hist   
+## 1. 數值型欄位 .hist   
 ```python
     for i in train.columns:
         plt.hist(train[i])
