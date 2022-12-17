@@ -2,11 +2,11 @@
 
 1. Understand the shape of Data
 <tr> check info .describe etc 資料相關資訊
-⋅⋅⋅* check.hist .boxplot etc 
-⋅⋅⋅* corr相關係數 
-⋅⋅⋅*  value counts 
+<tr> check.hist .boxplot etc 
+<tr> corr相關係數 
+<tr> value counts 
 1. Data Cleaning
-⋅⋅⋅*  check missing data count 填補缺失值
+<tr> check missing data count 填補缺失值
 1. Data exploration
 1. Feature Engineering
 1. Data preprocessing for Model
