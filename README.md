@@ -5,7 +5,7 @@
       1-2.hist .boxplot etc </br>
       1-3 corr相關係數 </br>
  1. value counts 
-1. Data Cleaning
+1. Data Cleaning</br>
      2-1 missing data count 填補缺失值
 1. Data exploration
 1. Feature Engineering
