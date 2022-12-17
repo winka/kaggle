@@ -6,7 +6,7 @@
 &nbsp; 1-3 corr相關係數 <br/>
 &nbsp; 1-4 value counts <br/>
 1. Data Cleaning  <br/>
-&nbsp; 1-1 check missing data count 填補缺失值 <br/>
+&nbsp; 2-1 check missing data count 填補缺失值 <br/>
 1. Data exploration
 1. Feature Engineering
 1. Data preprocessing for Model
