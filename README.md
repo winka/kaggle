@@ -1,12 +1,12 @@
 ### Machine Learning Step
 
 1. Understand the shape of Data
-[tab][tab]info .describe etc 資料相關資訊
-  1. .hist .boxplot etc 
+[x] checkinfo .describe etc 資料相關資訊
+[x] check.hist .boxplot etc 
   1. corr相關係數 
   1. value counts 
 1. Data Cleaning
-     1. missing data count 填補缺失值
+[x] check missing data count 填補缺失值
 1. Data exploration
 1. Feature Engineering
 1. Data preprocessing for Model
