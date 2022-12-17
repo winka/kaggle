@@ -1,8 +1,10 @@
 # Kaggle Tantic 
 
 
-| Left columns  | Right columns |
+| Columns name  | Columns plot  |
 | ------------- |:-------------:|
-| left foo      | ![image](https://github.com/winka/IMG/blob/main/tantic%20info.PNG?raw=true)    |
-| left bar      | right bar     |
-| left baz      | right baz     |
+| Sex           | ![image](https://github.com/winka/IMG/blob/main/tantic%20info.PNG?raw=true)          |
+Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20parch.png?raw=true)             |
+| Sibsp           | ![image](https://github.com/winka/IMG/blob/mai/tantic%20plot%20sibsp.png?raw=true)          |
+|  Fare     | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20fare.png?raw=true)            |
+| Age      |![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20age.png?raw=true)              |
