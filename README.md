@@ -1,7 +1,7 @@
 ## Machine Learning Step
 
 1. Understand the shape of Data </br>
-      1-1 info .describe etc 資料相關資訊</br>
+      1-1 info .describe etc 探索資料資訊</br>
       1-2.hist .boxplot etc </br>
       1-3 corr相關係數 </br>
       1-4 value counts 
