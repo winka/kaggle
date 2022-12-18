@@ -72,10 +72,10 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 train['title'] = train['Name'].str.extract('([A-Za-z]+)\.')
 
 # Step2 mr mrs sir age median  
-title_Agemean = pd.pivot_table(df, index='title', values='Age')
+title_Agemean = pd.pivot_table(train, index='title', values='Age')
 # Step3 column:age fillna with column:title age median 
 for i, j  in df.groupby('title')['Age'].median().items():
-    df.loc[(df['title'] == i) & (df['Age'].isnull()) ,'Age'] = j
-print(df['title'].value_counts())
+    train.loc[(train['title'] == i) & (train['Age'].isnull()) ,'Age'] = j
+print(train['title'].value_counts())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20table%20title.PNG?raw=true)
