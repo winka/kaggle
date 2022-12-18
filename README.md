@@ -79,3 +79,21 @@ for i, j  in df.groupby('title')['Age'].median().items():
 print(train['title'].value_counts())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20table%20title.PNG?raw=true)
+
+```
+#Train & Score
+y = Train['Survived']
+X = Train.drop(['Survived'], axis=1)
+
+
+#step  3 決策樹測試 
+X_train, X_test, y_train, y_test = train_test_split(X,y)
+tree = DecisionTreeClassifier()
+iris_clf = tree.fit(X_train, y_train)
+
+print(cross_val_score(tree, X_test, y_test, cv=10).mean())
+print(iris_clf.score(X_test,y_test))
+```
+
+
+
