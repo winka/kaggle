@@ -95,5 +95,7 @@ print(cross_val_score(tree, X_test, y_test, cv=10).mean())
 print(iris_clf.score(X_test,y_test))
 ```
 
+![image](https://github.com/winka/IMG/blob/main/tantic%20score.PNG?raw=true)
+
 
 
