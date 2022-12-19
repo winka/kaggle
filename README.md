@@ -65,7 +65,7 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 | Pclass      |![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20pclass.png?raw=true)              |
 
 ## 我的觀察
-### Fare SibSp Fare 欄位有離群值得發生  
+### Fare SibSp Fare 欄位有離群的得發生  
 
 ## 使用稱謂(Mr, Mrs)的中位數來填補Age欄位缺失值
 ```
