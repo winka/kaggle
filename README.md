@@ -190,7 +190,7 @@ print(f'best_score: {best_score}')
 ### 結果；GridSearchCV選擇使用RandomForestClassifier來作為我的模型，但Data在該模型的正確率下降(使用DecisionTreeClassifier 83% -> 使用RandomForestClassifier 80%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
 ##  總結
-### 1.在既有的特徵中加入額外的特徵能夠使大幅提高正確率(77% -> 83%)，應該在尋找資料中更多的關聯性組合出更多額外特徵
+### 1.在既有的特徵中加入額外的特徵能夠使大幅提高正確率(77% -> 83%)，應該尋找資料更多的關聯性並組合出更多額外特徵
 ### 2.目前單純選擇模型無法為我的資料提高正確率，或許可以加入在各個模型加入他們個別的參數使正確率提高
 
 
