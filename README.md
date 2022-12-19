@@ -94,7 +94,7 @@ iris_clf = tree.fit(X_train, y_train)
 print(cross_val_score(tree, X_test, y_test, cv=10).mean())
 print(iris_clf.score(X_test,y_test))
 ```
-
+### 結果；目前為77%
 ![image](https://github.com/winka/IMG/blob/main/tantic%20score.PNG?raw=true)
 
 
@@ -130,11 +130,11 @@ temp.columns = ['Sex','sexfare_mean','sexfare_max','sexfare_min','sexfare_median
 
 train = pd.merge(train,temp,on='Sex',how='right')
 ```
-
+### 結果；對資料中的兩個欄位(Sex, Fare)做群聚編碼成功改善正確率(目前為83%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20%E7%BE%A4%E8%81%9A%E7%B7%A8%E7%A2%BC%E5%BE%8Cscore.PNG?raw=true)
-```
-### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
 
+## 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
+```
 # GridSearchCV 試驗
 # GridSearchCV可以用來尋找這個data在哪個分類器以及參數下表現最好
 
@@ -185,6 +185,7 @@ best_model_name = result[0]['Name']
 print(f'best_model: {best_model}')
 print(f'best_score: {best_score}')
 ```
+### 結果；對資料中的兩個欄位(Sex, Fare)做群聚編碼成功改善正確率(目前為83%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
 
 
