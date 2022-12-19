@@ -191,7 +191,7 @@ print(f'best_score: {best_score}')
 ![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
 ##  總結
 ### 1.在既有的特徵中加入額外的特徵能夠使大幅提高正確率(77% -> 83%)。應該在資料中尋找更多的關聯性並從中組合出更多額外特徵
-### 2.目前的單純選擇模型無法提高正確率，或許可以在各個模型加入他們個別的參數使正確率提高
+### 2.目前單純選擇模型無法提高正確率，或許可以在各個模型加入他們個別的參數使正確率提高
 
 
 
