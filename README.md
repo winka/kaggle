@@ -3,7 +3,7 @@
 ## 希望能夠做到甚麼(透過機器學習模型來預測鐵達尼號的乘客是否會活下來)
 ## 資料來源:https://www.kaggle.com/competitions/titanic/overview
 ## 鐵達尼號資料表各個欄位代表意義
-![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
+![image](https://github.com/winka/IMG/blob/main/data%20dictionary.PNG?raw=true)
 
 1. Understand the shape of Data </br>
       1-1 info .describe etc 探索資料資訊</br>
