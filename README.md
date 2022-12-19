@@ -3,7 +3,15 @@
 希望能透過這次機器學習模型製作的過程，發現甚麼樣身分的鐵達尼克號乘客(例如:是否購買較貴的船艙，性別為男性或是女性等)
 能逃離這場災難，以及讓我的機器模型能夠正確預測乘客是否生存
 
-## 鐵達尼號資料表各個欄位
+### Tantic Machine Learning outline
+* 資料探索
+* 特徵值處理
+* 模型訓練 & 結果
+* 模型預測正確率強化
+* 總結
+
+# 資料探索
+## 鐵達尼號資料表欄位
 ![image](https://github.com/winka/IMG/blob/main/data%20dictionary.PNG?raw=true)
 ## 資料來源:https://www.kaggle.com/competitions/titanic/overview
 
@@ -52,6 +60,8 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 4. 從資料Corr中可以發現Survived與Fare欄位有正關係，Fare欄位的值越高越有可能活下來，反之亦然
 5. 從資料Corr中可以發現Survived與Pclass欄位有負關係，Pclass欄位的值越低越有機會存活，反之亦然
 
+
+# 特徵值處理
 ## 經過觀察後對資料處理
 ### 1. 從Name欄位中擷取稱謂(Mr, Mrs)的中位數來填補 Age 缺失值
 
@@ -70,6 +80,7 @@ print(train['title'].value_counts())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20table%20title.PNG?raw=true)
 
+# 模型訓練 & 結果
 ```python
 #Train & Score
 y = Train['Survived']
@@ -89,6 +100,7 @@ print(iris_clf.score(X_test,y_test))
 ## 我的觀察
 1. 目前正確判斷率為不理想的77%，希望藉由增加額外的特徵讓模型有更多判斷的依據、或是換一個機器學習模型來強化正確率
 
+# 模型預測正確率強化
 ## 經過觀察後對資料處理
 ### 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼增加額外的特徵強化正確率
 ### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
@@ -175,7 +187,7 @@ print(f'best_score: {best_score}')
 ```
 ### 結果:GridSearchCV選擇使用RandomForestClassifier來作為我的模型，但資料在該模型的正確率下降(使用DecisionTreeClassifier 83% -> 使用RandomForestClassifier 80%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
-##  總結
+#  總結
 ### 1.在既有的特徵中加入額外的特徵能夠使大幅提高正確率(77% -> 83%)。應該在資料中尋找更多的關聯性並從中組合出更多額外特徵
 ### 2.目前只使用模型選擇無法提高正確率反而會使正確率降低，未來可以在各個模型加入他們個別的參數，並進行調整讓模型正確率提高
 
