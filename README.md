@@ -69,7 +69,7 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 ### 1. 從Name欄位中擷取稱謂(Mr, Mrs)的中位數來填補 Age 缺失值
 
 使用稱謂(Mr, Mrs)的中位數來填補Age欄位缺失值
-```
+```python
 # Goal column:Age fillna 
 # Step1 column:Name extract mr mrs sir etc
 train['title'] = train['Name'].str.extract('([A-Za-z]+)\.')
@@ -83,7 +83,7 @@ print(train['title'].value_counts())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20table%20title.PNG?raw=true)
 
-```
+```python
 #Train & Score
 y = Train['Survived']
 X = Train.drop(['Survived'], axis=1)
@@ -107,7 +107,7 @@ print(iris_clf.score(X_test,y_test))
 ### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
 
 ## 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼強化正確率
-```
+```python
 # 取一個類別型欄位, 與一個數值型欄位, 做群聚編碼
 # Columns Sex and fare Group by Encoding
 # 取出一個類別型欄位對另一個數值型欄位做運算
@@ -135,7 +135,7 @@ train = pd.merge(train,temp,on='Sex',how='right')
 ![image](https://github.com/winka/IMG/blob/main/tantic%20%E7%BE%A4%E8%81%9A%E7%B7%A8%E7%A2%BC%E5%BE%8Cscore.PNG?raw=true)
 
 ## 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
-```
+```python
 # GridSearchCV 試驗
 # GridSearchCV可以用來尋找這個data在哪個分類器以及參數下表現最好
 
