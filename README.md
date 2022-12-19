@@ -106,7 +106,7 @@ print(iris_clf.score(X_test,y_test))
 ### 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼以求改善正確率
 ### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
 ## 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼以求改善正確率
-'''python
+```
 # 取一個類別型欄位, 與一個數值型欄位, 做群聚編碼
 # Columns Sex and fare Group by Encoding
 # 取出一個類別型欄位對另一個數值型欄位做運算
