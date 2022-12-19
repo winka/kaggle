@@ -3,7 +3,7 @@
 希望能透過這次機器學習模型製作的過程，發現甚麼樣身分的鐵達尼克號乘客(例如:是否購買較貴的船艙，性別為男性或是女性等)
 能逃離這場災難，以及讓我的機器模型能夠正確預測乘客是否生存
 
-## 鐵達尼號資料表各個欄位代表意義
+## 鐵達尼號資料表各個欄位
 ![image](https://github.com/winka/IMG/blob/main/data%20dictionary.PNG?raw=true)
 ## 資料來源:https://www.kaggle.com/competitions/titanic/overview
 
