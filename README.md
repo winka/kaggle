@@ -130,7 +130,7 @@ temp.columns = ['Sex','sexfare_mean','sexfare_max','sexfare_min','sexfare_median
 
 train = pd.merge(train,temp,on='Sex',how='right')
 ```
-### 結果；對資料中的兩個欄位(Sex, Fare)做群聚編碼成功改善正確率(目前為83%)
+### 結果；針對Data特徵使用群聚編碼後再同一個模型下正確率有明顯提升(沒有用群聚編碼 77% -> 有使用群聚編碼 83%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20%E7%BE%A4%E8%81%9A%E7%B7%A8%E7%A2%BC%E5%BE%8Cscore.PNG?raw=true)
 
 ## 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
@@ -185,8 +185,15 @@ best_model_name = result[0]['Name']
 print(f'best_model: {best_model}')
 print(f'best_score: {best_score}')
 ```
-### 結果；對資料中的兩個欄位(Sex, Fare)做群聚編碼成功改善正確率(目前為83%)
+### 結果；GridSearchCV選擇使用RandomForestClassifier來作為我的模型，但Data在該模型的正確率下降(使用DecisionTreeClassifier 83% -> 使用RandomForestClassifier 80%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
+##  總結
+### 1.在既有的特徵中加入額外的特徵能夠使大幅提高正確率(77% -> 83%)，應該在尋找資料中更多的關聯性組合出更多額外特徵
+### 2.目前單純選擇模型無法為我的資料提高正確率，或許可以加入在各個模型加入他們個別的參數使正確率提高
+
+
+
+
 
 
 
