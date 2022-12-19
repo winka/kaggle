@@ -54,7 +54,7 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 
 ## 我的觀察
 
-1. Age, Cabin 欄位有缺失值需要再填補缺失值  
+1. Age 欄位有缺失值需要再填補缺失值  
 2. Data中有 數值型 與 文字型 兩種資料
 3. Fare SibSp Fare 欄位有離群的得發生
 4. 從資料Corr中可以發現Survived與Fare欄位有正關係，Fare欄位的值越高越有可能活下來，反之亦然
@@ -62,7 +62,6 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 
 
 # 特徵值處理
-## 經過觀察後對資料處理
 ### 1. 從Name欄位中擷取稱謂(Mr, Mrs)的中位數來填補 Age 缺失值
 
 使用稱謂(Mr, Mrs)的中位數來填補Age欄位缺失值
@@ -101,7 +100,6 @@ print(iris_clf.score(X_test,y_test))
 1. 目前正確判斷率為不理想的77%，希望藉由增加額外的特徵讓模型有更多判斷的依據、或是換一個機器學習模型來強化正確率
 
 # 模型預測正確率強化
-## 經過觀察後對資料處理
 ### 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼增加額外的特徵強化正確率
 ### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
 
