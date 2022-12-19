@@ -13,7 +13,7 @@
 # 資料探索
 ## 鐵達尼號資料表欄位
 ![image](https://github.com/winka/IMG/blob/main/data%20dictionary.PNG?raw=true)
-## 資料來源:https://www.kaggle.com/competitions/titanic/overview
+### 資料來源:https://www.kaggle.com/competitions/titanic/overview
 
 ### 實作過程觀察到的訊息
 用 describe 來觀察資料的平均數、中位數、最小值以及最大值等訊息
@@ -53,7 +53,6 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 | Pclass      |![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20pclass.png?raw=true)              |
 
 ## 我的觀察
-
 1. Age 欄位有缺失值需要再填補缺失值  
 2. Data中有 數值型 與 文字型 兩種資料
 3. Fare SibSp Fare 欄位有離群的得發生
