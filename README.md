@@ -1,25 +1,12 @@
-## Machine Learning Step
+## Tantic Machine Learning 
 
-## 希望能夠做到甚麼(透過機器學習模型來預測鐵達尼號的乘客是否會活下來)
-## 資料來源:https://www.kaggle.com/competitions/titanic/overview
+希望能透過這次機器學習模型製作的過程，發現甚麼樣身分的鐵達尼克號乘客(例如:是否購買較貴的船艙，性別為男性或是女性等)
+能逃離這場災難，以及讓我的機器模型能夠正確預測乘客是否生存
+
 ## 鐵達尼號資料表各個欄位代表意義
 ![image](https://github.com/winka/IMG/blob/main/data%20dictionary.PNG?raw=true)
+## 資料來源:https://www.kaggle.com/competitions/titanic/overview
 
-1. Understand the shape of Data </br>
-      1-1 info .describe etc 探索資料資訊</br>
-      1-2.hist .boxplot etc </br>
-      1-3 corr 相關係數 </br>
-      1-4 value counts 
-1. Data Cleaning</br>
-     2-1 missing data count 填補缺失值
-1. Data exploration
-1. Feature Engineering
-1. Data preprocessing for Model
-1. Basic Model Building
-1. Model Tunging
-1. Ensemble Model Building
-1. Result
-  
 ### 實作過程觀察到的訊息
 用 describe 來觀察資料的平均數、中位數、最小值以及最大值等訊息
 ```python
