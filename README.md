@@ -98,4 +98,95 @@ print(iris_clf.score(X_test,y_test))
 ![image](https://github.com/winka/IMG/blob/main/tantic%20score.PNG?raw=true)
 
 
+## 我的觀察
+
+### 1. 除了填補缺失值以外是否還有其他方法能強化正確率(目前為77%)
+
+## 經過觀察後對資料處理
+### 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼以求改善正確率
+### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
+## 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼以求改善正確率
+'''python
+# 取一個類別型欄位, 與一個數值型欄位, 做群聚編碼
+# Columns Sex and fare Group by Encoding
+# 取出一個類別型欄位對另一個數值型欄位做運算
+# 找出兩個欄位的mean, max, min, median mode(眾數) 等生成特徵欄位
+# 特徵欄位越多越好(通常) 
+sexfare_mean = train.groupby('Sex')['Fare'].mean().reset_index()
+sexfare_max = train.groupby('Sex')['Fare'].max().reset_index()
+sexfare_min = train.groupby('Sex')['Fare'].min().reset_index()
+sexfare_median = train.groupby('Sex')['Fare'].median().reset_index()
+sexfare_mode = train.groupby('Sex')['Fare'].apply(lambda x: x.mode()[0]).reset_index()
+
+
+# 合併到train
+temp = pd.DataFrame()
+temp = pd.merge(sexfare_mean, sexfare_max, on='Sex', how='left')
+temp = pd.merge(temp, sexfare_min, on='Sex', how='left')
+temp = pd.merge(temp, sexfare_median, on='Sex', how='left')
+temp = pd.merge(temp, sexfare_mode, on='Sex', how='left')
+
+temp.columns = ['Sex','sexfare_mean','sexfare_max','sexfare_min','sexfare_median','sexfare_mode']
+
+train = pd.merge(train,temp,on='Sex',how='right')
+'''
+![image](https://github.com/winka/IMG/blob/main/tantic%20%E7%BE%A4%E8%81%9A%E7%B7%A8%E7%A2%BC%E5%BE%8Cscore.PNG?raw=true)
+### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
+'''
+# GridSearchCV 試驗
+# GridSearchCV可以用來尋找這個data在哪個分類器以及參數下表現最好
+
+# Step1 做3個分類器List
+# 1. 分類器的名字(必要?)
+classifier_names = [
+    'LogisticRegression',
+    'KNeighborsClassifier',
+    'RandomForestClassifier',
+    'DecisionTreeClassifier'
+    ]
+# 2. 分類器函數(必要?)
+classifiers = [
+    LogisticRegression(),
+    KNeighborsClassifier(),
+    RandomForestClassifier(),
+    DecisionTreeClassifier()
+              ]
+# 3. 分類器參數(必要)
+parameters = [
+    {},
+    {},
+    {},
+    {}
+]
+
+result = []
+for name, classifier, params in zip(classifier_names,classifiers,parameters):
+    gsearch = GridSearchCV(classifier,param_grid=params)
+    fitted = gsearch.fit(X_train,y_train)
+    y_pred = gsearch.predict(X_test)
+    score = gsearch.score(X_test,y_test)
+    
+    result.append({
+        'Name':name,
+        'Model':gsearch,
+        'Score':score,
+        'Prediction': y_pred
+        })
+    
+# result 排序
+# 尋找最好的訓練模型與他的分數   
+result.sort(key = lambda x: x['Score'], reverse = True)
+best_model = result[0]['Model']
+best_score = result[0]['Score']
+best_model_name = result[0]['Name']
+
+print(f'best_model: {best_model}')
+print(f'best_score: {best_score}')
+'''
+![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
+
+
+
+
+
 
