@@ -53,9 +53,9 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 | Pclass      |![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20pclass.png?raw=true)              |
 
 ## 我的觀察
-1. Age 欄位有缺失值需要再填補缺失值  
+1. Age 欄位有缺失值填補缺失值  
 2. Data中有 數值型 與 文字型 兩種資料
-3. Fare SibSp Fare 欄位有離群的得發生
+3. Fare SibSp Fare 欄位有離群值
 4. 從資料Corr中可以發現Survived與Fare欄位有正關係，Fare欄位的值越高越有可能活下來，反之亦然
 5. 從資料Corr中可以發現Survived與Pclass欄位有負關係，Pclass欄位的值越低越有機會存活，反之亦然
 
