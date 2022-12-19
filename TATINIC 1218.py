@@ -8,8 +8,15 @@ import pandas as pd
 from sklearn.impute import SimpleImputer
 from matplotlib import pyplot as plt 
 import seaborn as sns
-from sklearn.model_selection import train_test_split, cross_val_score 
+from sklearn.model_selection import GridSearchCV, train_test_split, cross_val_score 
+from sklearn.preprocessing import MinMaxScaler
+
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
+
 
 # Machine Learning Step
 ##---------------------------------------------##
@@ -36,12 +43,10 @@ test = pd.read_csv('D:\\My\\python\\kaggle\\titanic\\test.csv')
 train = train.drop(['Cabin','Embarked'],axis=1)
 #觀察資料 step0   DAY1
 # .info .describe etc
-print("train") 
-print(train.describe())
-print(train.info())
-print(train.isnull().sum())
-
-
+# print("train") 
+# print(train.describe())
+# print(train.info())
+# print(train.isnull().sum())
 
 # Day2
 # Goal column:Age fillna 
@@ -57,9 +62,31 @@ for i, j  in train.groupby('title')['Age'].median().items():
 print(train.title.value_counts())
 train = train.drop('Name', axis=1)
 
+# 取一個類別型欄位, 與一個數值型欄位, 做群聚編碼
+# Columns Sex and fare Group by Encoding
+# 取出一個類別型欄位對另一個數值型欄位做運算
+# 找出兩個欄位的mean, max, min, median mode(眾數) 等生成特徵欄位
+# 特徵欄位越多越好(通常) 
+sexfare_mean = train.groupby('Sex')['Fare'].mean().reset_index()
+sexfare_max = train.groupby('Sex')['Fare'].max().reset_index()
+sexfare_min = train.groupby('Sex')['Fare'].min().reset_index()
+sexfare_median = train.groupby('Sex')['Fare'].median().reset_index()
+sexfare_mode = train.groupby('Sex')['Fare'].apply(lambda x: x.mode()[0]).reset_index()
 
 
-# 數值類  類別類
+# 合併到train
+temp = pd.DataFrame()
+temp = pd.merge(sexfare_mean, sexfare_max, on='Sex', how='left')
+temp = pd.merge(temp, sexfare_min, on='Sex', how='left')
+temp = pd.merge(temp, sexfare_median, on='Sex', how='left')
+temp = pd.merge(temp, sexfare_mode, on='Sex', how='left')
+
+temp.columns = ['Sex','sexfare_mean','sexfare_max','sexfare_min','sexfare_median','sexfare_mode']
+
+train = pd.merge(train,temp,on='Sex',how='right')
+
+
+# 數值型  類別型 分類
 train_num = []
 train_cate = []
 
@@ -73,58 +100,10 @@ for dtype, feature in zip(train.dtypes, train.columns):
 # print(train_cate)
 
 # plot 
-# for i in train[train_num].columns:
-#     plt.hist(train[i])
-#     plt.title(i)
-#     plt.show()
-
-
-
-
-
-
-
-# items() turn dataframe in to items 
-# Ex: train.groupby('title')['Age'].items() 
-# output train['title'] then output train['Age']
-    
-
-# Goal column Fare fillna with column Parch median
-# nan_fare = train.loc[df['Fare'].isnull(),'Pclass'].values[0]
-# pclass_nanfare = train.loc[df['Pclass']==nan_fare,'Fare'].median()
-# train['Fare'].fillna(pclass_nanfare,inplace=True)
-
-# # Goal: column Fare 0 with column Pclass median
-# zero_fare = df.loc[df['Fare']==0,'Pclass'].values[:]
-# pclass_zerofare = df.loc[df['Pclass']==i,'Fare'].median()
-# df.loc[df.Fare == 0, 'Fare'] = pclass_zerofare
-
-
-
-
-# # Goal column Cabin fillna with column ?? 
-# train['Cabin_firstword'] = train['Cabin'].str.extract('([A-Z])')
-
-# print(pd.pivot_table(train,index='Cabin_firstword',values=['Fare','Pclass'])) 
-# print(train['Cabin_firstword'].value_counts(normalize=True))
-
-# print(df[(df['Pclass'] == 1) & (df['Cabin_firstword']=='A')]['Fare'].min())
-# print(df[(df['Pclass'] == 1) & (df['Cabin_firstword']=='A')]['Fare'].max())
-
-# print(df[(df['Pclass'] == 1) & (df['Cabin_firstword']=='B')]['Fare'].min())
-# print(df[(df['Pclass'] == 1) & (df['Cabin_firstword']=='B')]['Fare'].max())
-
-# print(df[(df['Pclass'] == 1) & (df['Cabin_firstword']=='C')]['Fare'].min())
-# print(df[(df['Pclass'] == 1) & (df['Cabin_firstword']=='C')]['Fare'].max())
-
-
-
-
-  
-
-
-
-
+for i in train[train_num].columns:
+    plt.hist(train[i])
+    plt.title(i)
+    plt.show()
 
 # .hist .boxplot etc
 
@@ -134,66 +113,94 @@ for dtype, feature in zip(train.dtypes, train.columns):
 # #Result column age, cabin, embarked have null (177,687,2)
 
 # # corr 
-# print(train_num.corr())
-# sns.heatmap(train_num.corr())
+print(train_num.corr())
+sns.heatmap(train_num.corr())
 
 # # columns age pclass sibsp vs survived 
 # df_pivtable = pd.pivot_table(df, index='Survived', values=['Pclass','Age','SibSp'])
 # print(df_pivtable)
 
 
-
-#資料預處理  step3  pd,get_dummies  string -> int   DAY2
-#模型無法用STRING 要先用LABELENCODER或ONE HOT ENCONDER 轉化STRING資料
-#https://stackoverflow.com/questions/30384995/randomforestclassfier-fit-valueerror-could-not-convert-string-to-float
-
-# remove Name 
-# train_cate.remove('Name')
-
 #Train & Score
 train_catedata = pd.get_dummies(train[train_cate]).reset_index()
 train_numdata = train[train_num].reset_index()
 Train = pd.merge(train_catedata,train_numdata,on='index',how='right')
 
-#Train & Score
+# Train & Score
 y = Train['Survived']
 X = Train.drop(['Survived'], axis=1)
 
 
-#step  3 決策樹測試 
+# 分類成訓練集 X_train y_train以及測試集 X_test y_test
 X_train, X_test, y_train, y_test = train_test_split(X,y)
 tree = DecisionTreeClassifier()
-iris_clf = tree.fit(X_train, y_train)
-
-print(cross_val_score(tree, X_test, y_test, cv=10).mean())
-print(iris_clf.score(X_test,y_test))
-
-# 0.7723320158102767
-# 0.8340807174887892
-      
 
 
+# GridSearchCV 試驗
+# GridSearchCV可以用來尋找這個data在哪個分類器以及參數下表現最好
+
+# Step1 做3個分類器List
+# 1. 分類器的名字(必要?)
+classifier_names = [
+    'LogisticRegression',
+    'KNeighborsClassifier',
+    'RandomForestClassifier',
+    'DecisionTreeClassifier'
+    ]
+# 2. 分類器函數(必要?)
+classifiers = [
+    LogisticRegression(),
+    KNeighborsClassifier(),
+    RandomForestClassifier(),
+    DecisionTreeClassifier()
+              ]
+# 3. 分類器參數(必要)
+parameters = [
+    {},
+    {},
+    {},
+    {}
+]
+
+# Step2 GridSearchCV 測試
+
+# zip 用法
+# >>> for i, j  in zip(x, y):
+#         print(i,j)
+# a 1
+# b 2
+# c 3
+result = []
+for name, classifier, params in zip(classifier_names,classifiers,parameters):
+    gsearch = GridSearchCV(classifier,param_grid=params)
+    fitted = gsearch.fit(X_train,y_train)
+    y_pred = gsearch.predict(X_test)
+    score = gsearch.score(X_test,y_test)
+    
+    result.append({
+        'Name':name,
+        'Model':gsearch,
+        'Score':score,
+        'Prediction': y_pred
+        })
+    
+# result 排序
+# 尋找最好的訓練模型與他的分數   
+result.sort(key = lambda x: x['Score'], reverse = True)
+best_model = result[0]['Model']
+best_score = result[0]['Score']
+best_model_name = result[0]['Name']
+
+print(f'best_model: {best_model}')
+print(f'best_score: {best_score}')
 
 
 
 
-#優化分數 預處理加強?  選擇其他演算法? 變更其目前演算法中的參數? DAY3
 
 
 
-#print(train.isna().sum())
 
 
-# 獨熱編碼 + 羅吉斯迴歸 模型驗證 交叉驗證
-# df_temp = pd.DataFrame()
-# df_temp = pd.get_dummies(df)
-# train_X = df_temp[:train_num]
-# emstimator = LogisticRegression()
-
-# print(f'cross_validation:{cross_val_score(emstimator,train_X,train_Y,cv=5).mean()}')#
-# #模型驗證(model validation)
-# #交叉驗證(cross_val_score)
-# #每次從全部資料取不同的部分分別擔任train與test 進行多次運算(運算數字根據cv的數字而定) 
-# #彌補了train_test_split只計算一次的缺點(holdout set)
 
 
