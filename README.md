@@ -1,9 +1,14 @@
 ## Machine Learning Step
 
+## 希望能夠做到甚麼(透過機器學習模型來預測鐵達尼號的乘客是否會活下來)
+## 資料來源:https://www.kaggle.com/competitions/titanic/overview
+## 鐵達尼號資料表各個欄位代表意義
+![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
+
 1. Understand the shape of Data </br>
       1-1 info .describe etc 探索資料資訊</br>
       1-2.hist .boxplot etc </br>
-      1-3 corr相關係數 </br>
+      1-3 corr 相關係數 </br>
       1-4 value counts 
 1. Data Cleaning</br>
      2-1 missing data count 填補缺失值
@@ -16,37 +21,25 @@
 1. Result
   
 ### 實作過程觀察到的訊息
-首先用 describe 來看資料相關資訊
+用 describe 來觀察資料的平均數、中位數、最小值以及最大值等訊息
 ```python
     print(df.describe())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20describe.PNG?raw=true)
 
-### 再來用 info 來看資料相關資訊
+用 info 查看各個欄位有無缺失值，以及各自的資料型態
 ```python
     print(df.info())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20info.PNG?raw=true)
 
-### 數值型資料相關係數
+數值型資料相關係數
 ```python
    sns.heatmap(df.corr())
 ```
 ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20corr.png?raw=true)
 
-
-## 我的觀察
-
-### 1. Age, Cabin 欄位有缺失值需要再填補缺失值  
-### 2. Data中有 數值型 與 文字型 兩種資料
-### 3. 從資料Corr中可以發現Survived與Fare欄位有正關係，也就是說花的錢越多越可能夠活下來，反之亦然
-### 4. 從資料Corr中可以發現Survived與Pclass欄位有負關係，也就是說你住越好的房間越有機會存活下來，反之亦然
-
-## 經過觀察後對資料處理
-### 1. 從Name欄位中擷取稱謂(Mr, Mrs)的中位數來填補 Age 缺失值
-
-
- 1. 數值型欄位 .hist   
+數值型欄位直方圖   
 ```python
 for i in df[train_num].columns:
     plt.hist(df[i])
@@ -65,9 +58,17 @@ Parch      | ![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20par
 | Pclass      |![image](https://github.com/winka/IMG/blob/main/tantic%20plot%20pclass.png?raw=true)              |
 
 ## 我的觀察
-### Fare SibSp Fare 欄位有離群的得發生  
 
-## 使用稱謂(Mr, Mrs)的中位數來填補Age欄位缺失值
+1. Age, Cabin 欄位有缺失值需要再填補缺失值  
+2. Data中有 數值型 與 文字型 兩種資料
+3. Fare SibSp Fare 欄位有離群的得發生
+4. 從資料Corr中可以發現Survived與Fare欄位有正關係，Fare欄位的值越高越有可能活下來，反之亦然
+5. 從資料Corr中可以發現Survived與Pclass欄位有負關係，Pclass欄位的值越低越有機會存活，反之亦然
+
+## 經過觀察後對資料處理
+### 1. 從Name欄位中擷取稱謂(Mr, Mrs)的中位數來填補 Age 缺失值
+
+使用稱謂(Mr, Mrs)的中位數來填補Age欄位缺失值
 ```
 # Goal column:Age fillna 
 # Step1 column:Name extract mr mrs sir etc
@@ -87,7 +88,6 @@ print(train['title'].value_counts())
 y = Train['Survived']
 X = Train.drop(['Survived'], axis=1)
 
-
 #step  3 決策樹測試 
 X_train, X_test, y_train, y_test = train_test_split(X,y)
 tree = DecisionTreeClassifier()
@@ -96,18 +96,17 @@ iris_clf = tree.fit(X_train, y_train)
 print(cross_val_score(tree, X_test, y_test, cv=10).mean())
 print(iris_clf.score(X_test,y_test))
 ```
-### 結果；目前為77%
+### 結果:77%
 ![image](https://github.com/winka/IMG/blob/main/tantic%20score.PNG?raw=true)
 
-
 ## 我的觀察
-
-### 1. 除了填補缺失值以外是否還有其他方法能強化正確率(目前為77%)
+1. 目前正確判斷率為不理想的77%，希望藉由增加額外的特徵讓模型有更多判斷的依據、或是換一個機器學習模型來強化正確率
 
 ## 經過觀察後對資料處理
-### 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼以求改善正確率
+### 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼增加額外的特徵強化正確率
 ### 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
-## 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼以求改善正確率
+
+## 1. 對資料中的兩個欄位(Sex, Fare)做群聚編碼強化正確率
 ```
 # 取一個類別型欄位, 與一個數值型欄位, 做群聚編碼
 # Columns Sex and fare Group by Encoding
@@ -132,7 +131,7 @@ temp.columns = ['Sex','sexfare_mean','sexfare_max','sexfare_min','sexfare_median
 
 train = pd.merge(train,temp,on='Sex',how='right')
 ```
-### 結果；針對Data特徵使用群聚編碼後再同一個模型下正確率有明顯提升(沒有用群聚編碼 77% -> 有使用群聚編碼 83%)
+### 結果:針對Data特徵使用群聚編碼後再同一個模型下正確率有明顯提升(沒有用群聚編碼 77% -> 有使用群聚編碼 83%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20%E7%BE%A4%E8%81%9A%E7%B7%A8%E7%A2%BC%E5%BE%8Cscore.PNG?raw=true)
 
 ## 2. 使用GridSearchCV來測試同樣一個Data在不同模型下的表現
@@ -187,11 +186,11 @@ best_model_name = result[0]['Name']
 print(f'best_model: {best_model}')
 print(f'best_score: {best_score}')
 ```
-### 結果；GridSearchCV選擇使用RandomForestClassifier來作為我的模型，但Data在該模型的正確率下降(使用DecisionTreeClassifier 83% -> 使用RandomForestClassifier 80%)
+### 結果:GridSearchCV選擇使用RandomForestClassifier來作為我的模型，但資料在該模型的正確率下降(使用DecisionTreeClassifier 83% -> 使用RandomForestClassifier 80%)
 ![image](https://github.com/winka/IMG/blob/main/tantic%20gridsearchcv%20score.PNG?raw=true)
 ##  總結
 ### 1.在既有的特徵中加入額外的特徵能夠使大幅提高正確率(77% -> 83%)。應該在資料中尋找更多的關聯性並從中組合出更多額外特徵
-### 2.目前只使用模型選擇無法提高正確率，可以在各個模型加入他們個別的參數使正確率提高
+### 2.目前只使用模型選擇無法提高正確率反而會使正確率降低，未來可以在各個模型加入他們個別的參數，並進行調整讓模型正確率提高
 
 
 
