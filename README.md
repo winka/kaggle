@@ -76,7 +76,6 @@ for i, j  in df.groupby('title')['Age'].median().items():
     train.loc[(train['title'] == i) & (train['Age'].isnull()) ,'Age'] = j
 print(train['title'].value_counts())
 ```
-![image](https://github.com/winka/IMG/blob/main/tantic%20pivot%20table%20age%20title.PNG?raw=true)
 
 # 模型訓練 & 結果
 ```python
